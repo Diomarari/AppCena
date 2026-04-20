@@ -4,11 +4,8 @@ const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
 const nodemailer = require('nodemailer')
-const { v4: uuidv4 } = require('uuid')
-
-// Configurar nodemailer
-const nodemailer = require('nodemailer')
 const { MailtrapTransport } = require('mailtrap')
+const { v4: uuidv4 } = require('uuid')
 
 const transportador = nodemailer.createTransport(
     MailtrapTransport({
@@ -20,7 +17,7 @@ const enviarCorreo = async (para, asunto, html) => {
     await transportador.sendMail({
         from: {
             address: 'hello@demomailtrap.co',
-            name: 'AppCenar 🍽️'
+            name: 'AppCenar'
         },
         to: [para],
         subject: asunto,
