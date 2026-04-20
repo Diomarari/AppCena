@@ -3,15 +3,22 @@ const Comercio = require('../modelos/Comercio')
 const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
-const { Resend } = require('resend')
+const nodemailer = require('nodemailer')
 const { v4: uuidv4 } = require('uuid')
 
 // Configurar nodemailer
-
-const resend = new Resend(process.env.RESEND_API_KEY)
+const transportador = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: true,
+    auth: {
+        user: process.env.CORREO_USER,
+        pass: process.env.CORREO_PASS
+    }
+})
 
 // Función auxiliar para enviar correos
-
+// Función auxiliar para enviar correos
 const enviarCorreo = async (para, asunto, html) => {
     await resend.emails.send({
         from: 'AppCenar <onboarding@resend.dev>',
