@@ -3,30 +3,23 @@ const Comercio = require('../modelos/Comercio')
 const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
-const nodemailer = require('nodemailer')
+const { Resend } = require('resend')
 const { v4: uuidv4 } = require('uuid')
 
 // Configurar nodemailer
-const transportador = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: true,
-    auth: {
-        user: process.env.CORREO_USER,
-        pass: process.env.CORREO_PASS
-    }
-})
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Función auxiliar para enviar correos
+
 const enviarCorreo = async (para, asunto, html) => {
-    await transportador.sendMail({
-        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
+    await resend.emails.send({
+        from: 'AppCenar <onboarding@resend.dev>',
         to: para,
         subject: asunto,
         html
     })
 }
-
 // Función para crear datos iniciales del sistema
 const inicializarSistema = async () => {
     const configExiste = await Configuracion.findOne({ clave: 'ITBIS' })
