@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <h4 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-users me-2"></i>Listado de Clientes
+    </h4>
+
+    <div class="tarjeta">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead style="background-color: var(--crema-oscuro);">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Pedidos</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each clientes}}
+                    <tr>
+                        <td>{{nombre}} {{apellido}}</td>
+                        <td>{{correo}}</td>
+                        <td>{{telefono}}</td>
+                        <td>{{cantidadPedidos}}</td>
+                        <td>
+                            {{#if activo}}
+                                <span class="badge bg-success">Activo</span>
+                            {{else}}
+                                <span class="badge bg-secondary">Inactivo</span>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <form action="/admin/usuario/{{_id}}/estado" method="POST" style="display:inline;">
+                                {{#if activo}}
+                                    <button type="submit" class="btn btn-sm btn-warning"
+                                        onclick="return confirm('¿Estás seguro que deseas inactivar este cliente?')">
+                                        Inactivar
+                                    </button>
+                                {{else}}
+                                    <button type="submit" class="btn btn-sm btn-success"
+                                        onclick="return confirm('¿Estás seguro que deseas activar este cliente?')">
+                                        Activar
+                                    </button>
+                                {{/if}}
+                            </form>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">No hay clientes registrados aún.</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

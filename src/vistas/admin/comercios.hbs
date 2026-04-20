@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <h4 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-store me-2"></i>Listado de Comercios
+    </h4>
+
+    <div class="tarjeta">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead style="background-color: var(--crema-oscuro);">
+                    <tr>
+                        <th>Logo</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Horario</th>
+                        <th>Pedidos</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each comercios}}
+                    <tr>
+                        <td>
+                            {{#if logo}}
+                                <img src="/uploads/{{logo}}" alt="logo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                            {{else}}
+                                <div style="width:40px;height:40px;border-radius:50%;background:var(--crema-oscuro);display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-store" style="color:var(--marron-medio);"></i>
+                                </div>
+                            {{/if}}
+                        </td>
+                        <td>{{nombre}}</td>
+                        <td>{{correo}}</td>
+                        <td>{{telefono}}</td>
+                        <td>{{horaApertura}} - {{horaCierre}}</td>
+                        <td>{{cantidadPedidos}}</td>
+                        <td>
+                            {{#if activo}}
+                                <span class="badge bg-success">Activo</span>
+                            {{else}}
+                                <span class="badge bg-secondary">Inactivo</span>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <form action="/admin/usuario/{{_id}}/estado" method="POST" style="display:inline;">
+                                {{#if activo}}
+                                    <button type="submit" class="btn btn-sm btn-warning"
+                                        onclick="return confirm('¿Estás seguro que deseas inactivar este comercio?')">
+                                        Inactivar
+                                    </button>
+                                {{else}}
+                                    <button type="submit" class="btn btn-sm btn-success"
+                                        onclick="return confirm('¿Estás seguro que deseas activar este comercio?')">
+                                        Activar
+                                    </button>
+                                {{/if}}
+                            </form>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">No hay comercios registrados aún.</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

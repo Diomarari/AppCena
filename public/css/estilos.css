@@ -1,0 +1,211 @@
+:root {
+    --marron-oscuro: #5C3317;
+    --marron-medio: #8B4513;
+    --marron-claro: #A0522D;
+    --crema: #FFF8F0;
+    --crema-oscuro: #F5E6D3;
+    --crema-borde: #E8D5B7;
+    --texto-oscuro: #2C1A0E;
+    --texto-medio: #5C3317;
+    --sombra: 0 4px 15px rgba(92, 51, 23, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--crema);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--texto-oscuro);
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar-appcenar {
+    background-color: var(--marron-oscuro) !important;
+    box-shadow: var(--sombra);
+}
+
+.navbar-appcenar .nav-link { color: var(--crema) !important; transition: color 0.2s; }
+.navbar-appcenar .nav-link:hover { color: var(--crema-oscuro) !important; }
+.navbar-appcenar .navbar-brand { color: var(--crema) !important; font-size: 1.4rem; }
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor-principal { padding: 20px 0; min-height: calc(100vh - 70px); }
+
+/* PÁGINA AUTH */
+.pagina-auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--crema) 0%, var(--crema-oscuro) 100%);
+}
+
+.tarjeta-auth {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--crema-borde);
+}
+
+.tarjeta-grande { max-width: 700px; }
+
+.icono-grande {
+    font-size: 3rem;
+    color: var(--marron-medio);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.titulo-auth {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--marron-oscuro);
+    margin-bottom: 5px;
+}
+
+.subtitulo-auth { color: #888; font-size: 0.95rem; }
+.texto-centro { text-align: center; }
+
+/* FORMULARIOS */
+.etiqueta { color: var(--marron-oscuro); font-weight: 600; font-size: 0.9rem; }
+.texto-opcional { color: #aaa; font-weight: 400; }
+
+.campo-input {
+    border: 1px solid var(--crema-borde);
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: var(--crema);
+}
+
+.campo-input:focus {
+    border-color: var(--marron-medio);
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.15);
+    background-color: white;
+    outline: none;
+}
+
+/* BOTONES */
+.boton-principal {
+    background-color: var(--marron-medio);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.boton-principal:hover {
+    background-color: var(--marron-oscuro);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.boton-secundario {
+    background-color: var(--crema-oscuro);
+    color: var(--marron-oscuro);
+    border: 1px solid var(--crema-borde);
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.boton-secundario:hover {
+    background-color: var(--crema-borde);
+    color: var(--marron-oscuro);
+}
+
+.boton-texto {
+    background: transparent;
+    color: var(--marron-medio);
+    border: none;
+    padding: 8px;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.boton-texto:hover { color: var(--marron-oscuro); }
+
+/* SEPARADOR */
+.separador {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.85rem;
+    margin: 15px 0 5px;
+    position: relative;
+}
+
+.separador::before, .separador::after {
+    content: '';
+    display: inline-block;
+    width: 30%;
+    height: 1px;
+    background: var(--crema-borde);
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+/* TARJETAS GENERALES */
+.tarjeta {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--crema-borde);
+    margin-bottom: 15px;
+}
+
+/* ALERTAS PERSONALIZADAS */
+.alert-success { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+.alert-danger { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+
+/* BADGES DE ESTADO */
+.badge-pendiente { background-color: #ffc107; color: #333; }
+.badge-proceso { background-color: #17a2b8; color: white; }
+.badge-completado { background-color: #28a745; color: white; }
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    .tarjeta-auth { padding: 25px 20px; }
+    .titulo-auth { font-size: 1.5rem; }
+}
+/* TIPOS DE COMERCIO */
+.tarjeta-tipo {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+.tarjeta-tipo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(92, 51, 23, 0.2);
+}
+.icono-tipo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: var(--crema-oscuro);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 1.5rem;
+    color: var(--marron-medio);
+}
+
+/* CATÁLOGO */
+.carrito-sticky {
+    position: sticky;
+    top: 20px;
+}
+.producto-card {
+    transition: border-color 0.2s;
+}
+.producto-card:hover {
+    border-color: var(--marron-claro);
+}

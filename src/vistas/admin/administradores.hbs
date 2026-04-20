@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 style="color: var(--marron-oscuro);">
+            <i class="fas fa-user-shield me-2"></i>Administradores
+        </h4>
+        <a href="/admin/administradores/crear" class="btn boton-principal">
+            <i class="fas fa-plus me-2"></i>Nuevo administrador
+        </a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead style="background-color: var(--crema-oscuro);">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each admins}}
+                    <tr>
+                        <td>{{nombre}} {{apellido}}</td>
+                        <td>{{nombreUsuario}}</td>
+                        <td>{{cedula}}</td>
+                        <td>{{correo}}</td>
+                        <td>
+                            {{#if activo}}
+                                <span class="badge bg-success">Activo</span>
+                            {{else}}
+                                <span class="badge bg-secondary">Inactivo</span>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if esAdminPorDefecto}}
+                                <span class="text-muted small">Admin principal</span>
+                            {{else}}
+                                <a href="/admin/administradores/{{_id}}/editar" class="btn btn-sm boton-secundario me-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="/admin/administradores/{{_id}}/estado" method="POST" style="display:inline;">
+                                    {{#if activo}}
+                                        <button type="submit" class="btn btn-sm btn-warning"
+                                            onclick="return confirm('¿Estás seguro que deseas inactivar este administrador?')">
+                                            Inactivar
+                                        </button>
+                                    {{else}}
+                                        <button type="submit" class="btn btn-sm btn-success"
+                                            onclick="return confirm('¿Estás seguro que deseas activar este administrador?')">
+                                            Activar
+                                        </button>
+                                    {{/if}}
+                                </form>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">No hay administradores registrados.</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

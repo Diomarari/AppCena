@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        {{#if comercio.logo}}
+            <img src="/uploads/{{comercio.logo}}"
+                style="width:50px;height:50px;border-radius:50%;object-fit:cover;margin-right:12px;">
+        {{/if}}
+        <h5 class="mb-0" style="color:var(--marron-oscuro);">
+            Mis Pedidos — {{comercio.nombreComercio}}
+        </h5>
+    </div>
+
+    {{#each pedidos}}
+    <a href="/comercio/pedidos/{{_id}}" class="text-decoration-none">
+        <div class="tarjeta d-flex align-items-center mb-2">
+            {{#if comercioLogo}}
+                <img src="/uploads/{{comercioLogo}}"
+                    style="width:50px;height:50px;border-radius:50%;object-fit:cover;margin-right:15px;flex-shrink:0;">
+            {{else}}
+                <div style="width:50px;height:50px;border-radius:50%;background:var(--crema-oscuro);display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;">
+                    <i class="fas fa-store" style="color:var(--marron-medio);"></i>
+                </div>
+            {{/if}}
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold small" style="color:var(--marron-oscuro);">
+                        {{comercioNombre}}
+                    </span>
+                    <span class="badge {{#if (eq estado 'pendiente')}}badge-pendiente{{else if (eq estado 'en proceso')}}badge-proceso{{else}}badge-completado{{/if}}">
+                        {{estado}}
+                    </span>
+                </div>
+                <p class="text-muted small mb-0">
+                    RD$ {{total}} · {{cantidadProductos}} productos · {{formatFecha fechaPedido}}
+                </p>
+            </div>
+        </div>
+    </a>
+    {{else}}
+    <div class="tarjeta text-center py-5">
+        <i class="fas fa-box-open fa-3x mb-3" style="color:var(--crema-borde);"></i>
+        <p class="text-muted">Aún no has recibido pedidos.</p>
+    </div>
+    {{/each}}
+</div>

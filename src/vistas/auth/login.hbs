@@ -1,0 +1,54 @@
+<div class="pagina-auth">
+    <div class="tarjeta-auth">
+        <div class="texto-centro mb-4">
+            <i class="fas fa-utensils icono-grande"></i>
+            <h2 class="titulo-auth">AppCenar</h2>
+            <p class="subtitulo-auth">¡Bienvenido de vuelta! Ingresa tus datos.</p>
+        </div>
+
+        {{> mensajes}}
+
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label class="form-label etiqueta">Correo o nombre de usuario</label>
+                <input
+                    type="text"
+                    name="identificador"
+                    class="form-control campo-input"
+                    placeholder="tucorreo@ejemplo.com"
+                    value="{{datos.identificador}}"
+                    required
+                >
+            </div>
+            <div class="mb-4">
+                <label class="form-label etiqueta">Contraseña</label>
+                <input
+                    type="password"
+                    name="contrasena"
+                    class="form-control campo-input"
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+            <button type="submit" class="btn boton-principal w-100 mb-3">
+                <i class="fas fa-sign-in-alt me-2"></i>Iniciar sesión
+            </button>
+        </form>
+
+        <div class="separador">
+            <span>¿Aún no tienes cuenta?</span>
+        </div>
+
+        <div class="d-grid gap-2 mt-3">
+            <a href="/registro" class="btn boton-secundario">
+                <i class="fas fa-user-plus me-2"></i>Registrarme como cliente o delivery
+            </a>
+            <a href="/registro-comercio" class="btn boton-secundario">
+                <i class="fas fa-store me-2"></i>Registrar mi comercio
+            </a>
+            <a href="/olvide-clave" class="btn boton-texto">
+                <i class="fas fa-lock me-2"></i>¿Olvidaste tu contraseña?
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{{#if exito}}
+    {{#each exito}}
+        <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
+            <i class="fas fa-check-circle me-2"></i>{{this}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {{/each}}
+{{/if}}
+
+{{#if error}}
+    {{#each error}}
+        <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>{{this}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {{/each}}
+{{/if}}

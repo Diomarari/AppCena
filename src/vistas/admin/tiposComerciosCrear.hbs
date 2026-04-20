@@ -1,0 +1,34 @@
+<div class="container mt-4" style="max-width: 500px;">
+    <h4 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-plus me-2"></i>Crear Tipo de Comercio
+    </h4>
+
+    <div class="tarjeta">
+        {{> mensajes}}
+        <form action="/admin/tipos-comercio/crear" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label etiqueta">Nombre</label>
+                <input type="text" name="nombre" class="form-control campo-input"
+                    placeholder="Ej: Restaurante" value="{{datos.nombre}}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label etiqueta">Descripción</label>
+                <input type="text" name="descripcion" class="form-control campo-input"
+                    placeholder="Breve descripción del tipo" value="{{datos.descripcion}}" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label etiqueta">Icono</label>
+                <input type="file" name="icono" class="form-control campo-input"
+                    accept="image/*" required>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/admin/tipos-comercio" class="btn boton-secundario">
+                    <i class="fas fa-arrow-left me-2"></i>Volver
+                </a>
+                <button type="submit" class="btn boton-principal">
+                    <i class="fas fa-save me-2"></i>Crear tipo
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

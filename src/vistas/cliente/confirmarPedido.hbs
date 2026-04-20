@@ -1,0 +1,88 @@
+<div class="container mt-4">
+    <h5 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-map-marker-alt me-2"></i>Selecciona una dirección de entrega
+    </h5>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <form action="/cliente/confirmar-pedido" method="POST" id="form-pedido">
+                <input type="hidden" name="comercioId" value="{{comercio._id}}">
+                <input type="hidden" name="productosJSON" value="{{productosJSON}}">
+                <input type="hidden" name="direccionId" id="direccionSeleccionada">
+
+                {{#each direcciones}}
+                <div class="tarjeta mb-2" style="cursor:pointer;" onclick="seleccionarDireccion('{{_id}}', this)">
+                    <div class="d-flex align-items-start">
+                        <input type="radio" name="radioDir" value="{{_id}}"
+                            style="margin-right:12px;margin-top:4px;" id="dir-{{_id}}">
+                        <div>
+                            <p class="fw-bold mb-0" style="color:var(--marron-oscuro);">
+                                <i class="fas fa-map-marker-alt me-2" style="color:var(--marron-medio);"></i>{{nombre}}
+                            </p>
+                            <p class="text-muted small mb-0">{{descripcion}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div class="tarjeta text-center py-4">
+                    <p class="text-muted">No tienes direcciones registradas.</p>
+                    <a href="/cliente/direcciones/crear" class="btn boton-principal mt-2">
+                        <i class="fas fa-plus me-2"></i>Crear dirección
+                    </a>
+                </div>
+                {{/each}}
+
+                {{#if direcciones.length}}
+                <button type="submit" class="btn boton-principal w-100 mt-3" id="btn-pedir" disabled>
+                    <i class="fas fa-check me-2"></i>Pedir
+                </button>
+                {{/if}}
+            </form>
+
+            <a href="/cliente/catalogo/{{comercio._id}}" class="btn boton-texto mt-2">
+                <i class="fas fa-arrow-left me-2"></i>Volver al catálogo
+            </a>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="tarjeta">
+                {{#if comercio.logo}}
+                    <img src="/uploads/{{comercio.logo}}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;margin-bottom:10px;">
+                {{/if}}
+                <h6 class="fw-bold" style="color:var(--marron-oscuro);">{{comercio.nombreComercio}}</h6>
+                <hr>
+                {{#each productos}}
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="small">{{nombre}}</span>
+                    <span class="small fw-bold">RD$ {{precio}}</span>
+                </div>
+                {{/each}}
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span class="small text-muted">Subtotal</span>
+                    <span class="small">RD$ {{subtotal}}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="small text-muted">ITBIS ({{porcentajeItbis}}%)</span>
+                    <span class="small">RD$ {{montoItbis}}</span>
+                </div>
+                <div class="d-flex justify-content-between fw-bold mt-2">
+                    <span>Total</span>
+                    <span style="color:var(--marron-medio);">RD$ {{total}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function seleccionarDireccion(id, elemento) {
+    document.querySelectorAll('.tarjeta[onclick]').forEach(t => {
+        t.style.borderColor = 'var(--crema-borde)'
+    })
+    elemento.style.borderColor = 'var(--marron-medio)'
+    document.getElementById('dir-' + id).checked = true
+    document.getElementById('direccionSeleccionada').value = id
+    document.getElementById('btn-pedir').disabled = false
+}
+</script>

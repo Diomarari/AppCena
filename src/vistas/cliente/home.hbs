@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <h5 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-utensils me-2"></i>¡Hola, {{usuario.nombre}}! ¿Qué vas a pedir hoy?
+    </h5>
+
+    {{#if tipos.length}}
+    <div class="row g-3">
+        {{#each tipos}}
+        <div class="col-6 col-md-4 col-lg-3">
+            <a href="/cliente/comercios/{{_id}}" class="text-decoration-none">
+                <div class="tarjeta text-center tarjeta-tipo">
+                    {{#if icono}}
+                        <img src="/uploads/{{icono}}" alt="{{nombre}}"
+                            style="width:60px;height:60px;object-fit:cover;border-radius:12px;margin-bottom:10px;">
+                    {{else}}
+                        <div class="icono-tipo-placeholder">
+                            <i class="fas fa-store"></i>
+                        </div>
+                    {{/if}}
+                    <p class="fw-bold mb-0" style="color: var(--marron-oscuro);">{{nombre}}</p>
+                </div>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="tarjeta text-center py-5">
+        <i class="fas fa-store fa-3x mb-3" style="color: var(--crema-borde);"></i>
+        <p class="text-muted">Aún no hay tipos de comercio disponibles.</p>
+    </div>
+    {{/if}}
+</div>

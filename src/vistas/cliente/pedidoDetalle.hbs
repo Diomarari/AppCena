@@ -1,0 +1,40 @@
+<div class="container mt-4" style="max-width: 600px; margin: auto;">
+    <div class="text-center mb-4">
+        {{#if pedido.comercio.logo}}
+            <img src="/uploads/{{pedido.comercio.logo}}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+        {{/if}}
+        <h5 class="fw-bold mt-2" style="color:var(--marron-oscuro);">{{pedido.comercio.nombreComercio}}</h5>
+        <span class="badge fs-6 {{#if (eq pedido.estado 'pendiente')}}badge-pendiente{{else if (eq pedido.estado 'en proceso')}}badge-proceso{{else}}badge-completado{{/if}}">
+            {{pedido.estado}}
+        </span>
+        <p class="text-muted small mt-1">{{formatFecha pedido.fechaPedido}}</p>
+    </div>
+
+    <div class="tarjeta">
+        <h6 class="fw-bold mb-3">Tu pedido</h6>
+        {{#each detalles}}
+        <div class="d-flex align-items-center mb-3">
+            {{#if foto}}
+                <img src="/uploads/{{foto}}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;margin-right:12px;">
+            {{else}}
+                <div style="width:50px;height:50px;background:var(--crema-oscuro);border-radius:8px;margin-right:12px;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-utensils" style="color:var(--marron-medio);"></i>
+                </div>
+            {{/if}}
+            <div class="flex-grow-1">
+                <p class="fw-bold mb-0 small">{{nombreProducto}}</p>
+            </div>
+            <span class="fw-bold" style="color:var(--marron-medio);">RD$ {{precio}}</span>
+        </div>
+        {{/each}}
+        <hr>
+        <div class="d-flex justify-content-between fw-bold">
+            <span>Total</span>
+            <span style="color:var(--marron-medio);">RD$ {{pedido.total}}</span>
+        </div>
+    </div>
+
+    <a href="/cliente/pedidos" class="btn boton-secundario mt-3">
+        <i class="fas fa-arrow-left me-2"></i>Volver a mis pedidos
+    </a>
+</div>

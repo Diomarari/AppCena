@@ -1,0 +1,17 @@
+<div class="container mt-4">
+    <div class="tarjeta text-center" style="max-width:450px;margin:auto;">
+        <i class="fas fa-exclamation-triangle fa-3x mb-3" style="color:#dc3545;"></i>
+        <h5 class="fw-bold mb-2">¿Está seguro que desea eliminar esta dirección?</h5>
+        <p class="text-muted mb-4">Se eliminará: <strong>{{direccion.nombre}}</strong></p>
+        <div class="d-flex gap-2 justify-content-center">
+            <a href="/cliente/direcciones" class="btn boton-secundario">
+                <i class="fas fa-times me-2"></i>Cancelar
+            </a>
+            <form action="/cliente/direcciones/{{direccion._id}}/eliminar" method="POST">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash me-2"></i>Aceptar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

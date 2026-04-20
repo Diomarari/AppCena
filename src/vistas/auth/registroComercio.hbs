@@ -1,0 +1,74 @@
+<div class="pagina-auth">
+    <div class="tarjeta-auth tarjeta-grande">
+        <div class="texto-centro mb-4">
+            <i class="fas fa-store icono-grande"></i>
+            <h2 class="titulo-auth">Registrar mi comercio</h2>
+            <p class="subtitulo-auth">¡Lleva tu negocio al siguiente nivel con AppCenar!</p>
+        </div>
+
+        {{> mensajes}}
+
+        <form action="/registro-comercio" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label etiqueta">Nombre del comercio</label>
+                <input type="text" name="nombreComercio" class="form-control campo-input"
+                    placeholder="Ej: Pizzería La Romana" value="{{datos.nombreComercio}}" required>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control campo-input"
+                        placeholder="809-000-0000" value="{{datos.telefono}}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Correo electrónico</label>
+                    <input type="email" name="correo" class="form-control campo-input"
+                        placeholder="comercio@ejemplo.com" value="{{datos.correo}}" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Hora de apertura</label>
+                    <input type="time" name="horaApertura" class="form-control campo-input"
+                        value="{{datos.horaApertura}}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Hora de cierre</label>
+                    <input type="time" name="horaCierre" class="form-control campo-input"
+                        value="{{datos.horaCierre}}" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label etiqueta">Tipo de comercio</label>
+                <select name="tipoComercio" class="form-select campo-input" required>
+                    <option value="">Selecciona el tipo...</option>
+                    {{#each tipos}}
+                        <option value="{{_id}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label etiqueta">Logo del comercio <span class="texto-opcional">(opcional)</span></label>
+                <input type="file" name="logo" class="form-control campo-input" accept="image/*">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Contraseña</label>
+                    <input type="password" name="contrasena" class="form-control campo-input"
+                        placeholder="••••••••" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label etiqueta">Confirmar contraseña</label>
+                    <input type="password" name="confirmarContrasena" class="form-control campo-input"
+                        placeholder="••••••••" required>
+                </div>
+            </div>
+            <button type="submit" class="btn boton-principal w-100 mb-3">
+                <i class="fas fa-check me-2"></i>Registrar comercio
+            </button>
+            <a href="/" class="btn boton-texto w-100">
+                <i class="fas fa-arrow-left me-2"></i>Volver al inicio de sesión
+            </a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container mt-4" style="max-width: 600px;">
+    <h5 class="mb-1" style="color: var(--marron-oscuro);">
+        <i class="fas fa-heart me-2"></i>Mis Favoritos
+    </h5>
+    <p class="text-muted small mb-4">Pide a donde más te gusta</p>
+
+    {{#each favoritos}}
+    <div class="tarjeta d-flex align-items-center mb-2">
+        <a href="/cliente/catalogo/{{comercio._id}}" class="d-flex align-items-center text-decoration-none flex-grow-1">
+            {{#if comercio.logo}}
+                <img src="/uploads/{{comercio.logo}}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;margin-right:15px;">
+            {{else}}
+                <div style="width:50px;height:50px;border-radius:50%;background:var(--crema-oscuro);display:flex;align-items:center;justify-content:center;margin-right:15px;">
+                    <i class="fas fa-store" style="color:var(--marron-medio);"></i>
+                </div>
+            {{/if}}
+            <span class="fw-bold" style="color:var(--marron-oscuro);">{{comercio.nombreComercio}}</span>
+        </a>
+        <form action="/cliente/favoritos/{{comercio._id}}/remover" method="POST">
+            <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+        </form>
+    </div>
+    {{else}}
+    <div class="tarjeta text-center py-5">
+        <i class="fas fa-heart fa-3x mb-3" style="color: var(--crema-borde);"></i>
+        <p class="text-muted">Aún no tienes comercios favoritos.</p>
+        <a href="/cliente/home" class="btn boton-principal mt-2">Explorar comercios</a>
+    </div>
+    {{/each}}
+</div>

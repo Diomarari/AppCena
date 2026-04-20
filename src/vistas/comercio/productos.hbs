@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 style="color:var(--marron-oscuro);">
+            <i class="fas fa-box-open me-2"></i>Mantenimiento de Productos
+        </h5>
+        <a href="/comercio/productos/crear" class="btn boton-principal">
+            <i class="fas fa-plus me-2"></i>Nuevo producto
+        </a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead style="background-color:var(--crema-oscuro);">
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each productos}}
+                    <tr>
+                        <td>
+                            {{#if foto}}
+                                <img src="/uploads/{{foto}}"
+                                    style="width:45px;height:45px;object-fit:cover;border-radius:8px;">
+                            {{else}}
+                                <div style="width:45px;height:45px;background:var(--crema-oscuro);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-utensils" style="color:var(--marron-medio);"></i>
+                                </div>
+                            {{/if}}
+                        </td>
+                        <td class="fw-bold">{{nombre}}</td>
+                        <td class="text-muted small">{{descripcion}}</td>
+                        <td>{{categoria.nombre}}</td>
+                        <td style="color:var(--marron-medio);">RD$ {{precio}}</td>
+                        <td>
+                            <a href="/comercio/productos/{{_id}}/editar"
+                                class="btn btn-sm boton-secundario me-1">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="/comercio/productos/{{_id}}/eliminar"
+                                class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            No has creado productos aún.
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

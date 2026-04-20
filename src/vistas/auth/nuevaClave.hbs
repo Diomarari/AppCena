@@ -1,0 +1,27 @@
+<div class="pagina-auth">
+    <div class="tarjeta-auth">
+        <div class="texto-centro mb-4">
+            <i class="fas fa-key icono-grande"></i>
+            <h2 class="titulo-auth">Nueva contraseña</h2>
+            <p class="subtitulo-auth">Elige una contraseña segura para tu cuenta.</p>
+        </div>
+
+        {{> mensajes}}
+
+        <form action="/nueva-clave/{{token}}" method="POST">
+            <div class="mb-3">
+                <label class="form-label etiqueta">Nueva contraseña</label>
+                <input type="password" name="contrasena" class="form-control campo-input"
+                    placeholder="••••••••" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label etiqueta">Confirmar contraseña</label>
+                <input type="password" name="confirmarContrasena" class="form-control campo-input"
+                    placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn boton-principal w-100">
+                <i class="fas fa-save me-2"></i>Guardar nueva contraseña
+            </button>
+        </form>
+    </div>
+</div>

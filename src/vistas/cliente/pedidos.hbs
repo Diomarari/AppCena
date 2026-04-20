@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h5 class="mb-4" style="color: var(--marron-oscuro);">
+        <i class="fas fa-box me-2"></i>Mis Pedidos
+    </h5>
+
+    {{#each pedidos}}
+    <a href="/cliente/pedidos/{{_id}}" class="text-decoration-none">
+        <div class="tarjeta d-flex align-items-center mb-2">
+            {{#if comercioLogo}}
+                <img src="/uploads/{{comercioLogo}}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;margin-right:15px;flex-shrink:0;">
+            {{else}}
+                <div style="width:50px;height:50px;border-radius:50%;background:var(--crema-oscuro);display:flex;align-items:center;justify-content:center;margin-right:15px;flex-shrink:0;">
+                    <i class="fas fa-store" style="color:var(--marron-medio);"></i>
+                </div>
+            {{/if}}
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold small" style="color:var(--marron-oscuro);">{{comercioNombre}}</span>
+                    <span class="badge {{#if (eq estado 'pendiente')}}badge-pendiente{{else if (eq estado 'en proceso')}}badge-proceso{{else}}badge-completado{{/if}}">
+                        {{estado}}
+                    </span>
+                </div>
+                <p class="text-muted small mb-0">
+                    RD$ {{total}} · {{cantidadProductos}} productos · {{formatFecha fechaPedido}}
+                </p>
+            </div>
+        </div>
+    </a>
+    {{else}}
+    <div class="tarjeta text-center py-5">
+        <i class="fas fa-box-open fa-3x mb-3" style="color: var(--crema-borde);"></i>
+        <p class="text-muted">Aún no tienes pedidos realizados.</p>
+        <a href="/cliente/home" class="btn boton-principal mt-2">Hacer mi primer pedido</a>
+    </div>
+    {{/each}}
+</div>

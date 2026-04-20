@@ -1,0 +1,45 @@
+<div class="container mt-4" style="max-width:500px;">
+    <h5 class="mb-4" style="color:var(--marron-oscuro);">
+        <i class="fas fa-user me-2"></i>Mi Perfil
+    </h5>
+    <div class="tarjeta">
+        {{> mensajes}}
+        <form action="/delivery/perfil" method="POST" enctype="multipart/form-data">
+            {{#if usuarioDatos.foto}}
+            <div class="text-center mb-3">
+                <img src="/uploads/{{usuarioDatos.foto}}"
+                    style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+            </div>
+            {{/if}}
+            <div class="mb-3">
+                <label class="form-label etiqueta">Nombre</label>
+                <input type="text" name="nombre" class="form-control campo-input"
+                    value="{{usuarioDatos.nombre}}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label etiqueta">Apellido</label>
+                <input type="text" name="apellido" class="form-control campo-input"
+                    value="{{usuarioDatos.apellido}}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label etiqueta">Teléfono</label>
+                <input type="text" name="telefono" class="form-control campo-input"
+                    value="{{usuarioDatos.telefono}}" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label etiqueta">
+                    Foto de perfil <span class="texto-opcional">(opcional)</span>
+                </label>
+                <input type="file" name="foto" class="form-control campo-input" accept="image/*">
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/delivery/home" class="btn boton-secundario">
+                    <i class="fas fa-arrow-left me-2"></i>Volver
+                </a>
+                <button type="submit" class="btn boton-principal">
+                    <i class="fas fa-save me-2"></i>Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
