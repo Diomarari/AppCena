@@ -4,22 +4,22 @@ const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
 const nodemailer = require('nodemailer')
-const { MailtrapTransport } = require('mailtrap')
 const { v4: uuidv4 } = require('uuid')
 
-const transportador = nodemailer.createTransport(
-    MailtrapTransport({
-        token: process.env.MAILTRAP_TOKEN
-    })
-)
+const transportador = nodemailer.createTransport({
+    host: 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.CORREO_USER,
+        pass: process.env.BREVO_API_KEY
+    }
+})
 
 const enviarCorreo = async (para, asunto, html) => {
     await transportador.sendMail({
-        from: {
-            address: 'hello@demomailtrap.co',
-            name: 'AppCenar'
-        },
-        to: [para],
+        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
+        to: para,
         subject: asunto,
         html
     })
