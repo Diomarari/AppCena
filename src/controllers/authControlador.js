@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid')
 // Configurar nodemailer
 const transportador = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
+    port: 587,
     secure: true,
     auth: {
         user: process.env.CORREO_USER,
