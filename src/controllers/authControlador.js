@@ -8,9 +8,7 @@ const { v4: uuidv4 } = require('uuid')
 
 // Configurar nodemailer
 const transportador = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: true,
+    service: 'gmail',
     auth: {
         user: process.env.CORREO_USER,
         pass: process.env.CORREO_PASS
@@ -18,10 +16,9 @@ const transportador = nodemailer.createTransport({
 })
 
 // Función auxiliar para enviar correos
-// Función auxiliar para enviar correos
 const enviarCorreo = async (para, asunto, html) => {
-    await resend.emails.send({
-        from: 'AppCenar <onboarding@resend.dev>',
+    await transportador.sendMail({
+        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
         to: para,
         subject: asunto,
         html
