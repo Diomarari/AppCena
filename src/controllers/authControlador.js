@@ -7,19 +7,22 @@ const nodemailer = require('nodemailer')
 const { v4: uuidv4 } = require('uuid')
 
 // Configurar nodemailer
-const transportador = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.CORREO_USER,
-        pass: process.env.CORREO_PASS
-    }
-})
+const nodemailer = require('nodemailer')
+const { MailtrapTransport } = require('mailtrap')
 
-// Función auxiliar para enviar correos
+const transportador = nodemailer.createTransport(
+    MailtrapTransport({
+        token: process.env.MAILTRAP_TOKEN
+    })
+)
+
 const enviarCorreo = async (para, asunto, html) => {
     await transportador.sendMail({
-        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
-        to: para,
+        from: {
+            address: 'hello@demomailtrap.co',
+            name: 'AppCenar 🍽️'
+        },
+        to: [para],
         subject: asunto,
         html
     })
