@@ -25,6 +25,7 @@
     "nodemailer": "^7.0.13",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "resend": "^6.12.2",
+    "sib-api-v3-sdk": "^8.5.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
