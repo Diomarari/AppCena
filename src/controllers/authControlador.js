@@ -7,18 +7,18 @@ const nodemailer = require('nodemailer')
 const { v4: uuidv4 } = require('uuid')
 
 const transportador = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
+    host: 'smtp.resend.com',
+    port: 465,
+    secure: true,
     auth: {
-        user: process.env.CORREO_USER,
-        pass: process.env.BREVO_API_KEY
+        user: 'resend',
+        pass: process.env.RESEND_API_KEY
     }
 })
 
 const enviarCorreo = async (para, asunto, html) => {
     await transportador.sendMail({
-        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
+        from: `"AppCenar 🍽️" <onboarding@resend.dev>`,
         to: para,
         subject: asunto,
         html
