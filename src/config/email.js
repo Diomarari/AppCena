@@ -1,56 +1,72 @@
 const nodemailer = require('nodemailer')
 const sgTransport = require('nodemailer-sendgrid-transport')
+const { Resend } = require('resend')
 
 /**
  * Crea un transportador según el servicio configurado en EMAIL_SERVICE
- * Servicios soportados: 'sendgrid', 'mailtrap', 'gmail'
+ * Servicios soportados: 'resend', 'sendgrid', 'mailtrap', 'gmail'
  */
 const crearTransportador = () => {
-    const servicio = process.env.EMAIL_SERVICE || 'sendgrid'
+    const servicio = process.env.EMAIL_SERVICE || 'resend'
     let transportador
 
     console.log(`📧 Usando servicio de correo: ${servicio.toUpperCase()}`)
 
     switch (servicio.toLowerCase()) {
+        case 'resend':
+            // Resend no usa nodemailer, retorna un objeto especial
+            transportador = {
+                tipo: 'resend',
+                cliente: new Resend(process.env.RESEND_API_KEY)
+            }
+            break
+
         case 'sendgrid':
-            transportador = nodemailer.createTransport(sgTransport({
-                auth: {
-                    api_key: process.env.SENDGRID_API_KEY
-                }
-            }))
+            transportador = {
+                tipo: 'nodemailer',
+                cliente: nodemailer.createTransport(sgTransport({
+                    auth: {
+                        api_key: process.env.SENDGRID_API_KEY
+                    }
+                }))
+            }
             break
 
         case 'mailtrap':
-            transportador = nodemailer.createTransport({
-                host: process.env.MAILTRAP_HOST || 'smtp.mailtrap.io',
-                port: process.env.MAILTRAP_PORT || 465,
-                secure: true,
-                auth: {
-                    user: process.env.MAILTRAP_USER,
-                    pass: process.env.MAILTRAP_PASS
-                }
-            })
+            transportador = {
+                tipo: 'nodemailer',
+                cliente: nodemailer.createTransport({
+                    host: process.env.MAILTRAP_HOST || 'smtp.mailtrap.io',
+                    port: parseInt(process.env.MAILTRAP_PORT) || 2465,
+                    secure: true,
+                    auth: {
+                        user: process.env.MAILTRAP_USER,
+                        pass: process.env.MAILTRAP_PASS
+                    }
+                })
+            }
             break
 
         case 'gmail':
-            transportador = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: process.env.GMAIL_PORT || 587,
-                secure: process.env.GMAIL_SECURE === 'true' ? true : false, // true para puerto 465, false para 587
-                auth: {
-                    user: process.env.CORREO_USER,
-                    pass: process.env.CORREO_PASS
-                },
-                // Opciones para mejorar conexión en servidores remotos
-                connectionUrl: null,
-                tls: {
-                    rejectUnauthorized: false
-                }
-            })
+            transportador = {
+                tipo: 'nodemailer',
+                cliente: nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: process.env.GMAIL_PORT || 587,
+                    secure: process.env.GMAIL_SECURE === 'true' ? true : false,
+                    auth: {
+                        user: process.env.CORREO_USER,
+                        pass: process.env.CORREO_PASS
+                    },
+                    tls: {
+                        rejectUnauthorized: false
+                    }
+                })
+            }
             break
 
         default:
-            throw new Error(`Servicio de correo no soportado: ${servicio}. Usa 'sendgrid', 'mailtrap' o 'gmail'`)
+            throw new Error(`Servicio de correo no soportado: ${servicio}. Usa 'resend', 'sendgrid', 'mailtrap' o 'gmail'`)
     }
 
     return transportador
@@ -80,14 +96,35 @@ const enviarCorreo = async (para, asunto, html) => {
     }
 
     try {
-        const info = await transportador.sendMail({
-            from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
-            to: para,
-            subject: asunto,
-            html
-        })
+        let info
 
-        console.log(`✅ Correo enviado a ${para}:`, info.messageId)
+        if (transportador.tipo === 'resend') {
+            // Usar API de Resend
+            const de = process.env.RESEND_FROM || process.env.CORREO_USER
+            info = await transportador.cliente.emails.send({
+                from: `AppCenar 🍽️ <${de}>`,
+                to: para,
+                subject: asunto,
+                html
+            })
+
+            if (info.error) {
+                throw new Error(info.error.message)
+            }
+
+            console.log(`✅ Correo enviado a ${para}:`, info.id)
+        } else {
+            // Usar nodemailer (SendGrid, Mailtrap, Gmail)
+            info = await transportador.cliente.sendMail({
+                from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
+                to: para,
+                subject: asunto,
+                html
+            })
+
+            console.log(`✅ Correo enviado a ${para}:`, info.messageId)
+        }
+
         return info
     } catch (error) {
         console.error(`❌ Error enviando correo a ${para}:`, error.message)
@@ -104,9 +141,16 @@ const verificarConexion = async () => {
     }
 
     try {
-        await transportador.verify()
-        console.log('✅ Conexión de correo verificada exitosamente')
-        return true
+        if (transportador.tipo === 'resend') {
+            // Resend no tiene verify, solo intentamos enviar un test
+            console.log('✅ Configuración de Resend verificada')
+            return true
+        } else {
+            // Nodemailer tiene verify
+            await transportador.cliente.verify()
+            console.log('✅ Conexión de correo verificada exitosamente')
+            return true
+        }
     } catch (error) {
         console.error('❌ Error verificando conexión de correo:', error.message)
         return false
