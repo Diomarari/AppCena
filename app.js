@@ -11,6 +11,15 @@ if (ambiente === 'qa') {
     require('dotenv').config({ path: '.env' })
 }
 
+// Inicializar transportador de correo
+const { inicializarTransportador } = require('./src/config/email')
+try {
+    inicializarTransportador()
+} catch (error) {
+    console.error('⚠️ Error inicializando correo:', error.message)
+    // No bloqueamos la app si falla el correo en desarrollo
+}
+
 const conectarDB = require('./src/config/database')
 const authRutas = require('./src/rutas/authRutas')
 const clienteRutas = require('./src/rutas/clienteRutas')

@@ -3,24 +3,8 @@ const Comercio = require('../modelos/Comercio')
 const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
-const nodemailer = require('nodemailer')
-const sgTransport = require('nodemailer-sendgrid-transport')
+const { enviarCorreo } = require('../config/email')
 const { v4: uuidv4 } = require('uuid')
-
-const transportador = nodemailer.createTransport(sgTransport({
-    auth: {
-        api_key: process.env.SENDGRID_API_KEY
-    }
-}))
-
-const enviarCorreo = async (para, asunto, html) => {
-    await transportador.sendMail({
-        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
-        to: para,
-        subject: asunto,
-        html
-    })
-}
 // Función para crear datos iniciales del sistema
 const inicializarSistema = async () => {
     const configExiste = await Configuracion.findOne({ clave: 'ITBIS' })
