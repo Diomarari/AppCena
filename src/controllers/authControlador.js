@@ -4,21 +4,18 @@ const TipoComercio = require('../modelos/TipoComercio')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
 const nodemailer = require('nodemailer')
+const sgTransport = require('nodemailer-sendgrid-transport')
 const { v4: uuidv4 } = require('uuid')
 
-const transportador = nodemailer.createTransport({
-    host: 'smtp.resend.com',
-    port: 465,
-    secure: true,
+const transportador = nodemailer.createTransport(sgTransport({
     auth: {
-        user: 'resend',
-        pass: process.env.RESEND_API_KEY
+        api_key: process.env.SENDGRID_API_KEY
     }
-})
+}))
 
 const enviarCorreo = async (para, asunto, html) => {
     await transportador.sendMail({
-        from: `"AppCenar 🍽️" <onboarding@resend.dev>`,
+        from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
         to: para,
         subject: asunto,
         html
