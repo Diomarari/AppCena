@@ -35,11 +35,16 @@ const crearTransportador = () => {
         case 'gmail':
             transportador = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
+                port: process.env.GMAIL_PORT || 587,
+                secure: process.env.GMAIL_SECURE === 'true' ? true : false, // true para puerto 465, false para 587
                 auth: {
                     user: process.env.CORREO_USER,
                     pass: process.env.CORREO_PASS
+                },
+                // Opciones para mejorar conexión en servidores remotos
+                connectionUrl: null,
+                tls: {
+                    rejectUnauthorized: false
                 }
             })
             break
