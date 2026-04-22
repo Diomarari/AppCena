@@ -7,7 +7,7 @@ const DetallePedido = require('../modelos/DetallePedido')
 const Usuario2 = require('../modelos/Usuario')
 const { validationResult } = require('express-validator')
 
-// ==================== HOME ====================
+//  HOME
 
 const mostrarHome = async (req, res) => {
     try {
@@ -45,7 +45,7 @@ const mostrarHome = async (req, res) => {
     }
 }
 
-// ==================== DETALLE PEDIDO ====================
+// DETALLE PEDIDO 
 
 const mostrarDetallePedido = async (req, res) => {
     try {
@@ -77,7 +77,7 @@ const mostrarDetallePedido = async (req, res) => {
     }
 }
 
-// ==================== ASIGNAR DELIVERY ====================
+// ASIGNAR DELIVERY 
 
 const asignarDelivery = async (req, res) => {
     try {
@@ -121,7 +121,7 @@ const asignarDelivery = async (req, res) => {
     }
 }
 
-// ==================== PERFIL ====================
+//  PERFIL 
 
 const mostrarPerfil = async (req, res) => {
     try {
@@ -180,7 +180,7 @@ const procesarEditarPerfil = async (req, res) => {
     }
 }
 
-// ==================== CATEGORIAS ====================
+//  CATEGORIAS
 
 const mostrarCategorias = async (req, res) => {
     try {
@@ -299,7 +299,7 @@ const procesarEliminarCategoria = async (req, res) => {
     }
 }
 
-// ==================== PRODUCTOS ====================
+//  PRODUCTOS 
 
 const mostrarProductos = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-// Verifica que el usuario esté logueado
+// el usuario esté logueado
 const verificarSesion = (req, res, next) => {
     if (!req.session.usuario) {
         req.flash('error', 'Debes iniciar sesión para acceder a esta página.')
@@ -7,7 +7,7 @@ const verificarSesion = (req, res, next) => {
     next()
 }
 
-// Verifica que el usuario tenga el rol correcto
+//  el usuario tenga el rol correcto
 const verificarRol = (...roles) => {
     return (req, res, next) => {
         if (!req.session.usuario) {

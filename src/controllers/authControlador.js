@@ -5,7 +5,8 @@ const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
 const { enviarCorreo } = require('../config/email')
 const { v4: uuidv4 } = require('uuid')
-// Función para crear datos iniciales del sistema
+
+//  crear datos iniciales del sistema
 const inicializarSistema = async () => {
     const configExiste = await Configuracion.findOne({ clave: 'ITBIS' })
     if (!configExiste) {
@@ -96,7 +97,7 @@ const procesarLogin = async (req, res) => {
             foto: usuario.foto
         }
 
-        // Redirigir según rol
+       
         if (usuario.rol === 'cliente') return res.redirect('/cliente/home')
         if (usuario.rol === 'comercio') return res.redirect('/comercio/home')
         if (usuario.rol === 'delivery') return res.redirect('/delivery/home')

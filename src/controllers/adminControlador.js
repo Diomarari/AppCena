@@ -6,7 +6,7 @@ const Producto = require('../modelos/Producto')
 const Configuracion = require('../modelos/Configuracion')
 const { validationResult } = require('express-validator')
 
-// ==================== DASHBOARD ====================
+// DASHBOARD 
 
 const mostrarDashboard = async (req, res) => {
     try {
@@ -46,7 +46,7 @@ const mostrarDashboard = async (req, res) => {
     }
 }
 
-// ==================== CLIENTES ====================
+//  CLIENTEs
 
 const listarClientes = async (req, res) => {
     try {
@@ -73,7 +73,7 @@ const clientes = await Usuario.find({ rol: 'cliente' }).sort({ createdAt: -1 }).
     }
 }
 
-// ==================== DELIVERIES ====================
+//  DELIVERIES 
 
 const listarDeliveries = async (req, res) => {
     try {
@@ -100,7 +100,7 @@ const deliveries = await Usuario.find({ rol: 'delivery' }).sort({ createdAt: -1 
     }
 }
 
-// ==================== COMERCIOS ====================
+// COMERCIOS 
 
 const listarComercios = async (req, res) => {
     try {
@@ -130,7 +130,7 @@ const usuariosComercios = await Usuario.find({ rol: 'comercio' }).sort({ created
     }
 }
 
-// ==================== CAMBIAR ESTADO USUARIO ====================
+// CAMBIAR ESTADO USUARIO 
 
 const cambiarEstadoUsuario = async (req, res) => {
     try {
@@ -150,7 +150,7 @@ const cambiarEstadoUsuario = async (req, res) => {
     }
 }
 
-// ==================== CONFIGURACION ====================
+//  CONFIGURACION 
 
 const mostrarConfiguracion = async (req, res) => {
     try {
@@ -195,7 +195,7 @@ const procesarEditarConfiguracion = async (req, res) => {
     }
 }
 
-// ==================== ADMINISTRADORES ====================
+// ADMINISTRADORES 
 
 const listarAdministradores = async (req, res) => {
     try {
@@ -336,7 +336,7 @@ const cambiarEstadoAdmin = async (req, res) => {
     }
 }
 
-// ==================== TIPOS DE COMERCIO ====================
+// TIPOS DE COMERCIO 
 
 const listarTiposComercios = async (req, res) => {
     try {

@@ -17,7 +17,6 @@ try {
     inicializarTransportador()
 } catch (error) {
     console.error('⚠️ Error inicializando correo:', error.message)
-    // No bloqueamos la app si falla el correo en desarrollo
 }
 
 const conectarDB = require('./src/config/database')
@@ -123,13 +122,11 @@ app.use('/delivery', deliveryRutas)
 app.use('/admin', adminRutas)
 app.use('/api', apiRutas)
 
-// Manejador de errores
 app.use((err, req, res, next) => {
     console.error('💥 ERROR:', err.message)
     res.status(500).send(`<pre>ERROR: ${err.message}</pre>`)
 })
 
-// Ruta 404
 app.use((req, res) => {
     res.status(404).render('auth/login', {
         error: ['La página que buscas no existe.']

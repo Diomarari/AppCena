@@ -2,10 +2,7 @@ const nodemailer = require('nodemailer')
 const sgTransport = require('nodemailer-sendgrid-transport')
 const SibApiV3Sdk = require('sib-api-v3-sdk')
 
-/**
- * Crea un transportador según el servicio configurado en EMAIL_SERVICE
- * Servicios soportados: 'brevo', 'resend', 'sendgrid', 'mailtrap', 'gmail'
- */
+
 const crearTransportador = () => {
     const servicio = process.env.EMAIL_SERVICE || 'brevo'
     let transportador
@@ -14,7 +11,6 @@ const crearTransportador = () => {
 
     switch (servicio.toLowerCase()) {
         case 'brevo':
-            // Configurar cliente de Brevo (Sendinblue)
             const defaultClient = SibApiV3Sdk.ApiClient.instance
             const apiKey = defaultClient.authentications['api-key']
             apiKey.apiKey = process.env.BREVO_API_KEY
@@ -91,9 +87,9 @@ const inicializarTransportador = () => {
 
 /**
  * Envía un correo
- * @param {string} para - Email del destinatario
- * @param {string} asunto - Asunto del correo
- * @param {string} html - Contenido HTML del correo
+ * @param {string} para 
+ * @param {string} asunto 
+ * @param {string} html 
  */
 const enviarCorreo = async (para, asunto, html) => {
     if (!transportador) {
@@ -121,7 +117,7 @@ const enviarCorreo = async (para, asunto, html) => {
 
             console.log(`✅ Correo enviado a ${para}:`, info.messageId)
         } else if (transportador.tipo === 'nodemailer') {
-            // Usar nodemailer (SendGrid, Mailtrap, Gmail)
+            // Usar nodemailer (SendGrid, Mailtrap, Gmail) en caso de
             info = await transportador.cliente.sendMail({
                 from: `"AppCenar 🍽️" <${process.env.CORREO_USER}>`,
                 to: para,
@@ -139,9 +135,7 @@ const enviarCorreo = async (para, asunto, html) => {
     }
 }
 
-/**
- * Verifica la conexión del transportador (útil para debugging)
- */
+
 const verificarConexion = async () => {
     if (!transportador) {
         inicializarTransportador()
@@ -149,14 +143,12 @@ const verificarConexion = async () => {
 
     try {
         if (transportador.tipo === 'brevo') {
-            // Brevo no tiene verify, solo validamos que el API key exista
             if (!transportador.apiKey) {
                 throw new Error('BREVO_API_KEY no está configurado')
             }
             console.log('✅ Configuración de Brevo verificada')
             return true
         } else {
-            // Nodemailer tiene verify
             await transportador.cliente.verify()
             console.log('✅ Conexión de correo verificada exitosamente')
             return true
